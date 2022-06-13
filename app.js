@@ -134,4 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 break
         }
     }
+
+    //winning frogger
+    function win(){
+        if (squares[4].classList.contains('frog')){
+            result.innerHTML = 'YOU WON'
+            squares[currentIndex].classList.remove('frog')
+            clearInterval(timerId)
+            document.removeEventListener('keyup', moveFrog)
+        }
+    }
 })
