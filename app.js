@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logsRight = document.querySelector('.log-right')
     const width = 9
     let currentIndex = 76
+    let currentTime = 20
     let timerId
 
     // make frog
@@ -152,6 +153,15 @@ document.addEventListener('DOMContentLoaded', () => {
             squares[currentIndex].classList.remove('frog')
             clearInterval(timerId)
             document.removeEventListener('keyup', moveFrog)
+        }
+    }
+
+    // move the from when it is on the log
+    function moveWithLogLeft() {
+        if(currentIndex >= 27 && currentIndex < 35){
+            squares[currentIndex].classList.remove('frog')
+            currentIndex+=1
+            squares[currentIndex].classList.add('frog')
         }
     }
 })
