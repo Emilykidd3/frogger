@@ -172,4 +172,25 @@ document.addEventListener('DOMContentLoaded', () => {
             squares[currentIndex].classList.add('frog')
         }
     }
+
+    // all the functions that move things
+    function movePieces() {
+        currentTime--
+        timeLeft.textContent= currentTime
+        autoMoveCars()
+        autoMoveLogs()
+        moveWithLogLeft()
+        moveWithLogRight()
+        lose()
+    }
+
+    // to start and stop game
+    startBtn.addEventListener('click', () => {
+        if(timerId) {
+            clearInterval(timerId)
+        } else {
+            timerId = setInterval(movePieces, 1000)
+            document.addEventListener('keyup', moveFrog)
+        }
+    })
 })
