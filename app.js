@@ -2,18 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const squares = document.querySelector('.grid-div');
     const timeLeft = document.querySelector('#time-left');
     const result = document.querySelector('#result')
-    const startBtn = document.querySelector('#button')
-    const carsLeft = document.querySelector('.cars-left')
-    const carsRight = document.querySelector('.cars-right')
-    const logsLeft = document.querySelector('.log-left')
-    const logsRight = document.querySelector('.log-right')
+    const startBtn = document.querySelector('#start-pause-button')
+    const carsLeft = document.querySelectorAll('.cars-left')
+    const carsRight = document.querySelectorAll('.cars-right')
+    const logsLeft = document.querySelectorAll('.log-left')
+    const logsRight = document.querySelectorAll('.log-right')
     const width = 9
     let currentIndex = 76
     let currentTime = 20
     let timerId
-
-    // make frog
-    squares[currentIndex].classList.add('frog')
 
     // move frog
     function moveFrog(e) {
