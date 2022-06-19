@@ -7,10 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const carsRight = document.querySelectorAll('.cars-right')
     const logsLeft = document.querySelectorAll('.log-left')
     const logsRight = document.querySelectorAll('.log-right')
+
     const width = 9
     let currentIndex = 76
     let currentTime = 20
     let timerId
+    let outcomeTimerId
 
     // move frog
     function moveFrog(e) {
@@ -30,6 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 break
         }
         squares[currentIndex].classList.add('frog')
+        lose()
+        win()
+    }
+
+
+    // all the functions that move things
+    function movePieces() {
+        currentTime--
+        timeLeft.textContent= currentTime
+        autoMoveCars()
+        autoMoveLogs()
+        moveWithLogLeft()
+        moveWithLogRight()
+        lose()
+    }
+
+    function checkOutcomes() {
         lose()
         win()
     }
@@ -170,16 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // all the functions that move things
-    function movePieces() {
-        currentTime--
-        timeLeft.textContent= currentTime
-        autoMoveCars()
-        autoMoveLogs()
-        moveWithLogLeft()
-        moveWithLogRight()
-        lose()
-    }
 
     // to start and stop game
     startBtn.addEventListener('click', () => {
