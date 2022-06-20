@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // move the car to thte right
-        function moveCarRight(carRight) {
+    function moveCarRight(carRight) {
         switch(true){
             case carRight.classList.contains('c1'):
                 carRight.classList.remove('c1')
@@ -154,10 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //winning frogger
     function win(){
-        if (squares[4].classList.contains('frog')){
+        if (squares[currentIndex].classList.contains('ending-block')){
             result.innerHTML = 'YOU WON'
-            squares[currentIndex].classList.remove('frog')
             clearInterval(timerId)
+            clearInterval(outcomeTimerId)
+            squares[currentIndex].classList.remove('frog')
             document.removeEventListener('keyup', moveFrog)
         }
     }
