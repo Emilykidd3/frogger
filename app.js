@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeLeft = document.querySelector('#time-left');
     const result = document.querySelector('#result')
     const startBtn = document.querySelector('#start-pause-button')
-    const carsLeft = document.querySelectorAll('.cars-left')
-    const carsRight = document.querySelectorAll('.cars-right')
+    const carsLeft = document.querySelectorAll('.car-left')
+    const carsRight = document.querySelectorAll('.car-right')
     const logsLeft = document.querySelectorAll('.log-left')
     const logsRight = document.querySelectorAll('.log-right')
 
@@ -17,23 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // move frog
     function moveFrog(e) {
         squares[currentIndex].classList.remove('frog')
+
         switch(e.keyCode) {
-            case 37:
+            case 'ArrowLeft':
                 if (currentIndex % width !== 0) currentIndex-=1
                 break
-            case 38:
+            case 'ArrowUp':
                 if(currentIndex - width >=0) currentIndex -=width
                 break
-            case 39:
+            case 'ArrowRight':
                 if(currentIndex % width < width - 1) currentIndex +=1
                 break
-            case 40:
+            case 'ArrowDown':
                 if(currentIndex + width < width * width) currentIndex += width
                 break
         }
         squares[currentIndex].classList.add('frog')
-        lose()
-        win()
     }
 
 
