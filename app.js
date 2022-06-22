@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const timeLeftDisplay = document.querySelector('#time-left');
+    const resultDisplay = document.querySelector('#result')
+    const startPauseButton = document.querySelector('#start-pause-button')
     const squares = document.querySelector('.grid-div');
-    const timeLeft = document.querySelector('#time-left');
-    const result = document.querySelector('#result')
-    const startBtn = document.querySelector('#start-pause-button')
-    const carsLeft = document.querySelectorAll('.car-left')
-    const carsRight = document.querySelectorAll('.car-right')
     const logsLeft = document.querySelectorAll('.log-left')
     const logsRight = document.querySelectorAll('.log-right')
+    const carsLeft = document.querySelectorAll('.car-left')
+    const carsRight = document.querySelectorAll('.car-right')
 
     const width = 9
     let currentIndex = 76
@@ -18,12 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function moveFrog(e) {
         squares[currentIndex].classList.remove('frog')
 
-        switch(e.keyCode) {
+        switch(e.key) {
             case 'ArrowLeft':
                 if (currentIndex % width !== 0) currentIndex-=1
                 break
             case 'ArrowUp':
-                if(currentIndex - width >=0) currentIndex -=width
+                if(currentIndex - width >=0) 
+                currentIndex -=width
                 break
             case 'ArrowRight':
                 if(currentIndex % width < width - 1) currentIndex +=1
@@ -37,14 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // all the functions that move things
-    function movePieces() {
+    function autoMoveElements() {
         currentTime--
         timeLeft.textContent= currentTime
-        autoMoveCars()
-        autoMoveLogs()
-        moveWithLogLeft()
-        moveWithLogRight()
-        lose()
+        logsLeft.forEach(logLeft => moveLogLeft(logLeft))
+        logsRight.forEach(logRight => moveLogRight(logRight))
+        carsLeft.forEach(carLeft => moveCarLeft(carLeft))
+        carsRight.forEach(carRight => moveCarRight(carRight))
     }
 
     function checkOutcomes() {
