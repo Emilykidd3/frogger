@@ -144,9 +144,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function autoMoveLogs() {
-    logsLeft.forEach((logLeft) => moveLogLeft(logLeft));
-    logsRight.forEach((logRight) => moveLogRight(logRight));
+  // losing frogger
+  function lose() {
+    if (
+      currentTime <= 0 ||
+      squares[currentIndex].classList.contains("c1") ||
+      squares[currentIndex].classList.contains("l5") ||
+      squares[currentIndex].classList.contains("l4")
+    ) {
+      result.innerHTML = "YOU LOSE";
+      clearInterval(timerId);
+      squares[currentIndex].classList.remove("frog");
+      document.removeEventListener("keyup", moveFrog);
+    }
   }
 
   //winning frogger
@@ -155,48 +165,21 @@ document.addEventListener("DOMContentLoaded", () => {
       result.innerHTML = "YOU WON";
       clearInterval(timerId);
       clearInterval(outcomeTimerId);
-      squares[currentIndex].classList.remove("frog");
       document.removeEventListener("keyup", moveFrog);
-    }
-  }
-
-  // losing frogger
-  function lose() {
-    if (
-      currentTime === 0 ||
-      squares[currentIndex].classList.contains("c1") ||
-      squares[currentIndex].classList.contains("l5") ||
-      squares[currentIndex].classList.contains("l4")
-    ) {
-      result.innerHTML = "YOU LOSE";
-      squares[currentIndex].classList.remove("frog");
-      clearInterval(timerId);
-      document.removeEventListener("keyup", moveFrog);
-    }
-  }
-
-  // move the from when it is on the log
-  function moveWithLogLeft() {
-    if (currentIndex >= 27 && currentIndex < 35) {
-      squares[currentIndex].classList.remove("frog");
-      currentIndex += 1;
-      squares[currentIndex].classList.add("frog");
-    }
-  }
-  function moveWithLogRight() {
-    if (currentIndex > 18 && currentIndex <= 26) {
-      squares[currentIndex].classList.remove("frog");
-      currentIndex -= 1;
-      squares[currentIndex].classList.add("frog");
     }
   }
 
   // to start and stop game
-  startBtn.addEventListener("click", () => {
+  startPauseButton.addEventListener("click", () => {
     if (timerId) {
       clearInterval(timerId);
+      clearInterval(outcomeTimerId);
+      outcomeTimerId = null;
+      timerId = null;
+      document.removeEventListener("keyup", moveFrog);
     } else {
-      timerId = setInterval(movePieces, 1000);
+      timerId = setInterval(autoMoveElements, 1000);
+      outcomeTimerId = setInterval(checkOutComes, 50);
       document.addEventListener("keyup", moveFrog);
     }
   });
