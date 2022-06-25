@@ -2,17 +2,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeLeftDisplay = document.querySelector("#time-left");
   const resultDisplay = document.querySelector("#result");
   const startPauseButton = document.querySelector("#start-pause-button");
-  const squares = document.querySelector(".grid-div");
+  const squares = document.querySelectorAll(".grid div");
   const logsLeft = document.querySelectorAll(".log-left");
   const logsRight = document.querySelectorAll(".log-right");
   const carsLeft = document.querySelectorAll(".car-left");
   const carsRight = document.querySelectorAll(".car-right");
 
-  const width = 9;
   let currentIndex = 76;
-  let currentTime = 20;
+  const width = 9;
   let timerId;
   let outcomeTimerId;
+  let currentTime = 20;
 
   // move frog
   function moveFrog(e) {
@@ -38,19 +38,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // all the functions that move things
   function autoMoveElements() {
     currentTime--;
-    timeLeft.textContent = currentTime;
+    timeLeftDisplay.textContent = currentTime;
     logsLeft.forEach((logLeft) => moveLogLeft(logLeft));
     logsRight.forEach((logRight) => moveLogRight(logRight));
     carsLeft.forEach((carLeft) => moveCarLeft(carLeft));
     carsRight.forEach((carRight) => moveCarRight(carRight));
   }
 
-  function checkOutcomes() {
+  function checkOutComes() {
     lose();
     win();
   }
 
-  function moveLogLeft() {
+  function moveLogLeft(logLeft) {
     switch (true) {
       case logLeft.classList.contains("l1"):
         logLeft.classList.remove("l1");
@@ -73,15 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
         logLeft.classList.add("l1");
         break;
     }
-  }
-
-  function autoMoveCars() {
-    carsLeft.forEach((carsLeft) => {
-      moveCarLeft(carLeft);
-    });
-    carsRight.forEach((carsRight) => {
-      moveCarRigth(carRight);
-    });
   }
 
   function moveLogRight(logRight) {
@@ -147,17 +138,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // losing frogger
   function lose() {
     if (
-      currentTime <= 0 ||
-      squares[currentIndex].classList.contains("c1") ||
-      squares[currentIndex].classList.contains("l5") ||
-      squares[currentIndex].classList.contains("l4")
+        squares[currentIndex].classList.contains('c1') ||
+        squares[currentIndex].classList.contains('l4') ||
+        squares[currentIndex].classList.contains('l5') ||
+        currentTime <= 0
     ) {
-      result.innerHTML = "YOU LOSE";
-      clearInterval(timerId);
-      squares[currentIndex].classList.remove("frog");
-      document.removeEventListener("keyup", moveFrog);
+        resultDisplay.textContent = 'You lose!'
+        clearInterval(timerId)
+        clearInterval(outcomeTimerId)
+        squares[currentIndex].classList.remove('frog')
+        document.removeEventListener('keyup', moveFrog)
     }
-  }
+}
 
   //winning frogger
   function win() {
